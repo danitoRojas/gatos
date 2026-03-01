@@ -7,9 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 async function bootstrap() {
 
 
-  ConfigModule.forRoot({
-    isGlobal: true,
-  });
+
 
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1');
