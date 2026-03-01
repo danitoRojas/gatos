@@ -3,8 +3,11 @@ import { GatosService } from './gatos.service';
 import { CreateGatoDto } from './dto/create-gato.dto';
 import { UpdateGatoDto } from './dto/update-gato.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 
+@ApiBearerAuth()
+@ApiTags('Gatos ')
 @UseGuards(AuthGuard)
 @Controller('gatos')
 export class GatosController {
@@ -12,6 +15,8 @@ export class GatosController {
 
 
   @Post()
+  @ApiOperation({ summary: 'Crear un nuevo gato con sus datos' })
+  @ApiResponse({ status: 201, description: 'The gato has been successfully created.' })
   create(@Body() createGatoDto: CreateGatoDto) {
     return this.gatosService.create(createGatoDto);
   }

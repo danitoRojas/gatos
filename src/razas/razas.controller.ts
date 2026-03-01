@@ -2,8 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { RazasService } from './razas.service';
 import { CreateRazaDto } from './dto/create-raza.dto';
 import { UpdateRazaDto } from './dto/update-raza.dto';
+import { Role } from 'src/auth/enums/rol.enum';
+import { RolesGuard } from 'src/auth/roles.guard';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Auth } from 'src/auth/decorator/auth.decorator';
+
+
 @UseGuards(AuthGuard)
+@Auth(Role.ADMIN)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('razas')
 export class RazasController {
   constructor(private readonly razasService: RazasService) { }
